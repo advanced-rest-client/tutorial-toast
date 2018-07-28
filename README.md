@@ -1,25 +1,15 @@
-[![Build Status](https://travis-ci.org/advanced-rest-client/tutorial-toast.svg?branch=stage)](https://travis-ci.org/advanced-rest-client/tutorial-toast)  
+[![Build Status](https://travis-ci.org/advanced-rest-client/api-url-data-model.svg?branch=stage)](https://travis-ci.org/advanced-rest-client/tutorial-toast)
+
+[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/advanced-rest-client/tutorial-toast)
 
 # tutorial-toast
 
-`<tutorial-toast>` An on screen minimal tutorial
+An on screen minimal tutorial.
 
-### Example
-```
+```html
 <tutorial-toast></tutorial-toast>
 ```
 
-### Styling
-`<tutorial-toast>` provides the following custom properties and mixins for styling:
+### API components
 
-Custom property | Description | Default
-----------------|-------------|----------
-`--tutorial-toast` | Mixin applied to the element | `{}`
-`--tutorial-toast-background-color` | The tutorial-toast background-color | `#323232`
-`--tutorial-toast-color` | The tutorial-toast color | `#f1f1f1`
-`--tutorial-toast-min-width` | Min width of the tutorial toast | `60%`
-`--tutorial-toast-left` | Left position for the tutorial toast | `20%`
-`--tutorial-toast-button` | Mixin applied to the close tutorial button | `{}`
-`--tutorial-toast-button-color` | Color of the action button to close the tutorial toast | ``
-`--tutorial-toast-button-background-color` | Background color of the action button to close the tutorial toast | ``
-
+This components is a part of API components ecosystem: https://elements.advancedrestclient.com/

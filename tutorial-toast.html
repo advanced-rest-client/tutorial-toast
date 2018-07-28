@@ -1,6 +1,6 @@
 <!--
 @license
-Copyright 2016 The Advanced REST client authors <arc@mulesoft.com>
+Copyright 2018 The Advanced REST client authors <arc@mulesoft.com>
 Licensed under the Apache License, Version 2.0 (the "License"); you may not
 use this file except in compliance with the License. You may obtain a copy of
 the License at
@@ -11,37 +11,12 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations under
 the License.
 -->
-<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../polymer/lib/legacy/class.html">
 <link rel="import" href="../iron-a11y-announcer/iron-a11y-announcer.html">
 <link rel="import" href="../iron-overlay-behavior/iron-overlay-behavior.html">
 <link rel="import" href="../paper-button/paper-button.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
-<!--
-`<tutorial-toast>` An on screen minimal tutorial
-
-### Example
-```
-<tutorial-toast></tutorial-toast>
-```
-
-### Styling
-`<tutorial-toast>` provides the following custom properties and mixins for styling:
-
-Custom property | Description | Default
-----------------|-------------|----------
-`--tutorial-toast` | Mixin applied to the element | `{}`
-`--tutorial-toast-background-color` | The tutorial-toast background-color | `#323232`
-`--tutorial-toast-color` | The tutorial-toast color | `#f1f1f1`
-`--tutorial-toast-min-width` | Min width of the tutorial toast | `60%`
-`--tutorial-toast-left` | Left position for the tutorial toast | `20%`
-`--tutorial-toast-button` | Mixin applied to the close tutorial button | `{}`
-`--tutorial-toast-button-color` | Color of the action button to close the tutorial toast | ``
-`--tutorial-toast-button-background-color` | Background color of the action button to close the tutorial toast | ``
-
-@group UI Elements
-@element tutorial-toast
-@demo demo/index.html
--->
 <dom-module id="tutorial-toast">
   <template>
     <style>
@@ -103,7 +78,7 @@ Custom property | Description | Default
     </style>
     <div class="container">
       <div class="content">
-        <content></content>
+        <slot></slot>
       </div>
       <paper-button class="main-button" on-tap="close">Close</paper-button>
     </div>
@@ -111,77 +86,98 @@ Custom property | Description | Default
   <script>
   (function() {
   // Keeps track of the toast currently opened.
-  var currentToast = null;
-  Polymer({
-    is: 'tutorial-toast',
+  let currentToast = null;
 
-    behaviors: [
-      Polymer.IronOverlayBehavior
-    ],
+  /**
+   * An on screen minimal tutorial
+   *
+   * ### Example
+   *
+   * ```html
+   * <tutorial-toast>
+   *  <p>This is a tutorial for the page. Take a hint.</p>
+   * </tutorial-toast>
+   * ```
+   *
+   * ### Styling
+   *
+   * `<tutorial-toast>` provides the following custom properties and mixins for styling:
+   *
+   * Custom property | Description | Default
+   * ----------------|-------------|----------
+   * `--tutorial-toast` | Mixin applied to the element | `{}`
+   * `--tutorial-toast-background-color` | The tutorial-toast background-color | `#323232`
+   * `--tutorial-toast-color` | The tutorial-toast color | `#f1f1f1`
+   * `--tutorial-toast-min-width` | Min width of the tutorial toast | `60%`
+   * `--tutorial-toast-left` | Left position for the tutorial toast | `20%`
+   * `--tutorial-toast-button` | Mixin applied to the close tutorial button | `{}`
+   * `--tutorial-toast-button-color` | Color of the action button to close the tutorial toast | ``
+   * `--tutorial-toast-button-background-color` | Background color of action button | ``
+   *
+   * @customElement
+   * @polymer
+   * @demo demo/index.html
+   * @memberof ApiElements
+   * @appliesMixin Polymer.IronOverlayBehavior
+   */
+  class TutorialToast extends Polymer.mixinBehaviors([Polymer.IronOverlayBehavior], Polymer.Element) {
+    static get is() { return 'tutorial-toast'; }
+    static get properties() {
+      return {
+        /**
+         * The element to fit `this` into.
+         * Overridden from `Polymer.IronFitBehavior`.
+         */
+        fitInto: {
+          type: Object,
+          value: window,
+          observer: '_onFitIntoChanged'
+        },
+        /**
+         * The duration in milliseconds to show the toast.
+         * Set to `0`, a negative number, or `Infinity`, to disable the
+         * toast auto-closing.
+         */
+        duration: {
+          type: Number,
+          value: 0
+        },
+        /**
+         * Overridden from `IronOverlayBehavior`.
+         * Set to false to enable closing of the toast by clicking outside it.
+         */
+        noCancelOnOutsideClick: {
+          type: Boolean,
+          value: true
+        },
+        /**
+         * Overridden from `IronOverlayBehavior`.
+         * Set to true to disable auto-focusing the toast or child nodes with
+         * the `autofocus` attribute` when the overlay is opened.
+         */
+        noAutoFocus: {
+          type: Boolean,
+          value: true
+        }
+      };
+    }
 
-    properties: {
-      /**
-       * The element to fit `this` into.
-       * Overridden from `Polymer.IronFitBehavior`.
-       */
-      fitInto: {
-        type: Object,
-        value: window,
-        observer: '_onFitIntoChanged'
-      },
+    constructor() {
+      super();
+      this.__onTransitionEnd = this.__onTransitionEnd.bind(this);
+    }
 
-      // /**
-      //  * The orientation against which to align the dropdown content
-      //  * horizontally relative to `positionTarget`.
-      //  * Overridden from `Polymer.IronFitBehavior`.
-      //  */
-      // horizontalAlign: {
-      //   type: String,
-      //   value: 'auto'
-      // },
-      //
-      // /**
-      //  * The orientation against which to align the dropdown content
-      //  * vertically relative to `positionTarget`.
-      //  * Overridden from `Polymer.IronFitBehavior`.
-      //  */
-      // verticalAlign: {
-      //   type: String,
-      //   value: 'bottom'
-      // },
+    connectedCallback() {
+      super.connectedCallback();
+      this._autoClose = null;
+      Polymer.IronA11yAnnouncer.requestAvailability();
+      this.addEventListener('transitionend', this.__onTransitionEnd);
+    }
 
-      /**
-       * The duration in milliseconds to show the toast.
-       * Set to `0`, a negative number, or `Infinity`, to disable the
-       * toast auto-closing.
-       */
-      duration: {
-        type: Number,
-        value: 0
-      },
-
-      /**
-       * Overridden from `IronOverlayBehavior`.
-       * Set to false to enable closing of the toast by clicking outside it.
-       */
-      noCancelOnOutsideClick: {
-        type: Boolean,
-        value: true
-      },
-      /**
-       * Overridden from `IronOverlayBehavior`.
-       * Set to true to disable auto-focusing the toast or child nodes with
-       * the `autofocus` attribute` when the overlay is opened.
-       */
-      noAutoFocus: {
-        type: Boolean,
-        value: true
-      }
-    },
-
-    listeners: {
-      'transitionend': '__onTransitionEnd'
-    },
+    disconnectedCallback() {
+      super.disconnectedCallback();
+      this.removeEventListener('transitionend', this.__onTransitionEnd);
+    }
 
     /**
      * Read-only. Can auto-close if duration is a positive finite number.
@@ -189,18 +185,13 @@ Custom property | Description | Default
      */
     get _canAutoClose() {
       return this.duration > 0 && this.duration !== Infinity;
-    },
-
-    created: function() {
-      this._autoClose = null;
-      Polymer.IronA11yAnnouncer.requestAvailability();
-    },
+    }
 
     /**
      * Called on transitions of the toast, indicating a finished animation
      * @private
      */
-    __onTransitionEnd: function(e) {
+    __onTransitionEnd(e) {
       // there are different transitions that are happening when opening and
       // closing the toast. The last one so far is for `opacity`.
       // This marks the end of the transition, so we check for this to determine if this
@@ -212,13 +203,13 @@ Custom property | Description | Default
           this._finishRenderClosed();
         }
       }
-    },
+    }
 
     /**
      * Overridden from `IronOverlayBehavior`.
      * Called when the value of `opened` changes.
      */
-    _openedChanged: function() {
+    _openedChanged() {
       if (this._autoClose !== null) {
         this.cancelAsync(this._autoClose);
         this._autoClose = null;
@@ -235,29 +226,30 @@ Custom property | Description | Default
         currentToast = null;
       }
       Polymer.IronOverlayBehaviorImpl._openedChanged.apply(this, arguments);
-    },
+    }
 
     /**
      * Overridden from `IronOverlayBehavior`.
      */
-    _renderOpened: function() {
+    _renderOpened() {
       this.classList.add('tutorial-toast-open');
-    },
+    }
 
     /**
      * Overridden from `IronOverlayBehavior`.
      */
-    _renderClosed: function() {
+    _renderClosed() {
       this.classList.remove('tutorial-toast-open');
-    },
+    }
 
     /**
      * @private
      */
-    _onFitIntoChanged: function(fitInto) {
+    _onFitIntoChanged(fitInto) {
       this.positionTarget = fitInto;
     }
-  });
+  }
+  window.customElements.define(TutorialToast.is, TutorialToast);
   })();
   </script>
 </dom-module>
