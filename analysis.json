@@ -1,0 +1,383 @@
+{
+  "schema_version": "1.0.0",
+  "elements": [
+    {
+      "description": "An on screen minimal tutorial\n\n### Example\n\n```html\n<tutorial-toast>\n <p>This is a tutorial for the page. Take a hint.</p>\n</tutorial-toast>\n```\n\n### Styling\n\n`<tutorial-toast>` provides the following custom properties and mixins for styling:\n\nCustom property | Description | Default\n----------------|-------------|----------\n`--tutorial-toast` | Mixin applied to the element | `{}`\n`--tutorial-toast-background-color` | The tutorial-toast background-color | `#323232`\n`--tutorial-toast-color` | The tutorial-toast color | `#f1f1f1`\n`--tutorial-toast-min-width` | Min width of the tutorial toast | `60%`\n`--tutorial-toast-left` | Left position for the tutorial toast | `20%`\n`--tutorial-toast-button` | Mixin applied to the close tutorial button | `{}`\n`--tutorial-toast-button-color` | Color of the action button to close the tutorial toast | ``\n`--tutorial-toast-button-background-color` | Background color of action button | ``",
+      "summary": "",
+      "path": "tutorial-toast.html",
+      "properties": [
+        {
+          "name": "_canAutoClose",
+          "type": "?",
+          "description": "Read-only. Can auto-close if duration is a positive finite number.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 185,
+              "column": 4
+            },
+            "end": {
+              "line": 187,
+              "column": 5
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        },
+        {
+          "name": "fitInto",
+          "type": "Object | null | undefined",
+          "description": "The element to fit `this` into.\nOverridden from `Polymer.IronFitBehavior`.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 130,
+              "column": 8
+            },
+            "end": {
+              "line": 134,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "observer": "\"_onFitIntoChanged\"",
+              "attributeType": "Object"
+            }
+          }
+        },
+        {
+          "name": "duration",
+          "type": "number | null | undefined",
+          "description": "The duration in milliseconds to show the toast.\nSet to `0`, a negative number, or `Infinity`, to disable the\ntoast auto-closing.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 140,
+              "column": 8
+            },
+            "end": {
+              "line": 143,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Number"
+            }
+          },
+          "defaultValue": "0"
+        },
+        {
+          "name": "noCancelOnOutsideClick",
+          "type": "boolean | null | undefined",
+          "description": "Overridden from `IronOverlayBehavior`.\nSet to false to enable closing of the toast by clicking outside it.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 148,
+              "column": 8
+            },
+            "end": {
+              "line": 151,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Boolean"
+            }
+          },
+          "defaultValue": "true"
+        },
+        {
+          "name": "noAutoFocus",
+          "type": "boolean | null | undefined",
+          "description": "Overridden from `IronOverlayBehavior`.\nSet to true to disable auto-focusing the toast or child nodes with\nthe `autofocus` attribute` when the overlay is opened.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 157,
+              "column": 8
+            },
+            "end": {
+              "line": 160,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Boolean"
+            }
+          },
+          "defaultValue": "true"
+        }
+      ],
+      "methods": [
+        {
+          "name": "connectedCallback",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 169,
+              "column": 4
+            },
+            "end": {
+              "line": 174,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "disconnectedCallback",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 176,
+              "column": 4
+            },
+            "end": {
+              "line": 179,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "__onTransitionEnd",
+          "description": "Called on transitions of the toast, indicating a finished animation",
+          "privacy": "private",
+          "sourceRange": {
+            "start": {
+              "line": 193,
+              "column": 4
+            },
+            "end": {
+              "line": 205,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "e"
+            }
+          ],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "_openedChanged",
+          "description": "Overridden from `IronOverlayBehavior`.\nCalled when the value of `opened` changes.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 211,
+              "column": 4
+            },
+            "end": {
+              "line": 228,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "_renderOpened",
+          "description": "Overridden from `IronOverlayBehavior`.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 233,
+              "column": 4
+            },
+            "end": {
+              "line": 235,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "_renderClosed",
+          "description": "Overridden from `IronOverlayBehavior`.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 240,
+              "column": 4
+            },
+            "end": {
+              "line": 242,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "_onFitIntoChanged",
+          "description": "",
+          "privacy": "private",
+          "sourceRange": {
+            "start": {
+              "line": 247,
+              "column": 4
+            },
+            "end": {
+              "line": 249,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "fitInto"
+            }
+          ],
+          "return": {
+            "type": "void"
+          }
+        }
+      ],
+      "staticMethods": [],
+      "demos": [
+        {
+          "url": "demo/index.html",
+          "description": ""
+        }
+      ],
+      "metadata": {},
+      "sourceRange": {
+        "start": {
+          "line": 122,
+          "column": 2
+        },
+        "end": {
+          "line": 250,
+          "column": 3
+        }
+      },
+      "privacy": "public",
+      "superclass": "HTMLElement",
+      "name": "ApiElements.TutorialToast",
+      "attributes": [
+        {
+          "name": "fit-into",
+          "description": "The element to fit `this` into.\nOverridden from `Polymer.IronFitBehavior`.",
+          "sourceRange": {
+            "start": {
+              "line": 130,
+              "column": 8
+            },
+            "end": {
+              "line": 134,
+              "column": 9
+            }
+          },
+          "metadata": {},
+          "type": "Object | null | undefined"
+        },
+        {
+          "name": "duration",
+          "description": "The duration in milliseconds to show the toast.\nSet to `0`, a negative number, or `Infinity`, to disable the\ntoast auto-closing.",
+          "sourceRange": {
+            "start": {
+              "line": 140,
+              "column": 8
+            },
+            "end": {
+              "line": 143,
+              "column": 9
+            }
+          },
+          "metadata": {},
+          "type": "number | null | undefined"
+        },
+        {
+          "name": "no-cancel-on-outside-click",
+          "description": "Overridden from `IronOverlayBehavior`.\nSet to false to enable closing of the toast by clicking outside it.",
+          "sourceRange": {
+            "start": {
+              "line": 148,
+              "column": 8
+            },
+            "end": {
+              "line": 151,
+              "column": 9
+            }
+          },
+          "metadata": {},
+          "type": "boolean | null | undefined"
+        },
+        {
+          "name": "no-auto-focus",
+          "description": "Overridden from `IronOverlayBehavior`.\nSet to true to disable auto-focusing the toast or child nodes with\nthe `autofocus` attribute` when the overlay is opened.",
+          "sourceRange": {
+            "start": {
+              "line": 157,
+              "column": 8
+            },
+            "end": {
+              "line": 160,
+              "column": 9
+            }
+          },
+          "metadata": {},
+          "type": "boolean | null | undefined"
+        }
+      ],
+      "events": [],
+      "styling": {
+        "cssVariables": [],
+        "selectors": []
+      },
+      "slots": [
+        {
+          "description": "",
+          "name": "",
+          "range": {
+            "start": {
+              "line": 86,
+              "column": 8
+            },
+            "end": {
+              "line": 86,
+              "column": 21
+            }
+          }
+        }
+      ],
+      "tagname": "tutorial-toast",
+      "mixins": [
+        "Polymer.IronOverlayBehavior"
+      ]
+    }
+  ]
+}

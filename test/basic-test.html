@@ -1,24 +1,10 @@
 <!doctype html>
-<!--
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
--->
 <html>
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-
-    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
     <script src="../../web-component-tester/browser.js"></script>
-    <script src="../../iron-test-helpers/test-helpers.js"></script>
-    <script src="../../iron-test-helpers/mock-interactions.js"></script>
-
-    <!-- Step 1: import the element to test -->
     <link rel="import" href="../tutorial-toast.html">
   </head>
   <body>
@@ -36,10 +22,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </test-fixture>
 
     <script>
-    /* global fixture, assert, sinon */
     suite('basic', function() {
-
-      var toast;
+      let toast;
 
       test('is hidden', function() {
         toast = fixture('basic');
@@ -82,7 +66,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       test('toast does not get focused', function(done) {
         toast = fixture('show');
-        var spy = sinon.spy(toast, 'focus');
+        const spy = sinon.spy(toast, 'focus');
         assert.isTrue(toast.noAutoFocus, 'no-auto-focus is true');
         toast.addEventListener('iron-overlay-opened', function() {
           assert.isFalse(spy.called, 'toast is not focused');
@@ -100,7 +84,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       });
 
       suite('disable auto-close', function() {
-        var spy;
+        let spy;
 
         setup(function() {
           toast = fixture('basic');
@@ -128,8 +112,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       });
 
       test('there is only 1 toast opened', function() {
-        var toast1 = fixture('basic');
-        var toast2 = fixture('show');
+        const toast1 = fixture('basic');
+        const toast2 = fixture('show');
         toast2.open();
         toast1.open();
         assert.isTrue(toast1.opened, 'toast1 is opened');
