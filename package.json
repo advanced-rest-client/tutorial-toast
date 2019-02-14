@@ -4,7 +4,7 @@
   "license": "Apache-2.0",
   "description": "An on screen minimal tutorial",
   "devDependencies": {
-    "@polymer/gen-typescript-declarations": "^1.1.1"
+    "@polymer/gen-typescript-declarations": "^1.6.1"
   },
   "private": false,
   "main": "tutorial-toast.html",
