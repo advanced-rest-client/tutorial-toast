@@ -11,13 +11,14 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations under
 the License.
 */
-import {PolymerElement} from '@polymer/polymer/polymer-element.js';
-import {mixinBehaviors} from '@polymer/polymer/lib/legacy/class.js';
-import {IronA11yAnnouncer} from '@polymer/iron-a11y-announcer/iron-a11y-announcer.js';
-import {IronOverlayBehaviorImpl, IronOverlayBehavior} from '@polymer/iron-overlay-behavior/iron-overlay-behavior.js';
-import '@polymer/paper-button/paper-button.js';
-import '@polymer/iron-flex-layout/iron-flex-layout.js';
-import {html} from '@polymer/polymer/lib/utils/html-tag.js';
+import {PolymerElement} from '../../@polymer/polymer/polymer-element.js';
+import {mixinBehaviors} from '../../@polymer/polymer/lib/legacy/class.js';
+import {IronA11yAnnouncer} from '../../@polymer/iron-a11y-announcer/iron-a11y-announcer.js';
+import {IronOverlayBehaviorImpl, IronOverlayBehavior} from
+  '../../@polymer/iron-overlay-behavior/iron-overlay-behavior.js';
+import '../../@polymer/paper-button/paper-button.js';
+import '../../@polymer/iron-flex-layout/iron-flex-layout.js';
+import {html} from '../../@polymer/polymer/lib/utils/html-tag.js';
 // Keeps track of the toast currently opened.
 let currentToast = null;
 
